@@ -20,8 +20,25 @@
         <button data-bind="click: setToToday">Set to Today</button>
         <hr/>
         <div data-bind="text: startDate"> </div>
+        <div data-bind="text: computedText"> </div>
 
     <script>
+
+        var localeDict = {
+            '1033' : 'en-us', 
+            '1053' : 'sv-se'
+        }
+
+        var getDayName = function (date, localeString) {
+            return date.toLocaleDateString(localeString, { weekday: 'long' });        
+        }
+
+        var addDays = function (originalDate, nbrDaysToAdd) {
+            var newDate = new Date(originalDate.getTime());
+            newDate.setDate(newDate.getDate() + nbrDaysToAdd);
+            return newDate;
+        }
+
         var ViewModel = function() {
             this.startDate = ko.observable(new Date(2012,10,30));
             this.maxDate = new Date(2012, 11 , 31);
@@ -29,6 +46,19 @@
             this.setToToday = function() {
                 this.startDate(new Date());
             };
+
+            this.computedText = ko.computed( function () {
+                var nbrDaysToAdd = 50;
+                var enLCIDDec = "1033";
+                var svLCIDDec = "1053";
+                var localeString = localeDict[enLCIDDec];
+                var dateInFuture = addDays(this.startDate(), nbrDaysToAdd);
+                var text = this.startDate().toLocaleDateString(localeString)+ " är en " + 
+                    getDayName(this.startDate(), localeString) + ". " + nbrDaysToAdd + 
+                    " dagar senare (" + dateInFuture.toLocaleDateString(localeString) + ") är det en " + 
+                    getDayName(dateInFuture, localeString) + ".";
+                return text;
+            }, this);
         };
 
         ko.applyBindings(new ViewModel());
