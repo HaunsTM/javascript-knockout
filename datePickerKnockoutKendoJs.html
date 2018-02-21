@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Date-Time-picker Knockout.js</title>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8" />
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.blueopal.min.css" />
+
+    <script src="http://kendo.cdn.telerik.com/2018.1.117/js/jquery.min.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2018.1.117/js/kendo.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-kendo/0.9.8/knockout-kendo.min.js"></script>
+
+</head>
+<body>
+        <!-- https://rniemeyer.github.io/knockout-kendo/web/DatePicker.html -->
+        <input id="myDatePicker" data-bind="kendoDatePicker: { value: startDate, max: maxDate, min: minDate }" />
+        <hr/>
+        <button data-bind="click: setToToday">Set to Today</button>
+        <hr/>
+        <div data-bind="text: startDate"> </div>
+
+    <script>
+        var ViewModel = function() {
+            this.startDate = ko.observable(new Date(2012,10,30));
+            this.maxDate = new Date(2012, 11 , 31);
+            this.minDate = new Date(2012, 0, 1);
+            this.setToToday = function() {
+                this.startDate(new Date());
+            };
+        };
+
+        ko.applyBindings(new ViewModel());
+
+        $("#myDatePicker").kendoDatePicker({
+            format: "yyyy-MM-dd"
+        });
+
+    </script>
+</body>
+</html>
