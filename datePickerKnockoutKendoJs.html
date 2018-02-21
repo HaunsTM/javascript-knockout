@@ -15,7 +15,7 @@
 </head>
 <body>
         <!-- https://rniemeyer.github.io/knockout-kendo/web/DatePicker.html -->
-        <input id="myDatePicker" data-bind="kendoDatePicker: { value: startDate, max: maxDate, min: minDate, format: 'yyyy-MM-dd' }" />
+        <input id="myDatePicker" data-bind="kendoDatePicker: { value: startDate, format: 'yyyy-MM-dd' }" />
         <hr/>
         <button data-bind="click: setToToday">Set to Today</button>
         <hr/>
@@ -30,7 +30,7 @@
         }
 
         var getDayName = function (date, localeString) {
-            return date.toLocaleDateString(localeString, { weekday: 'long' });        
+            return date.toLocaleDateString(localeString, { weekday: 'long' });
         }
 
         var addDays = function (originalDate, nbrDaysToAdd) {
@@ -47,18 +47,22 @@
                 this.startDate(new Date());
             };
 
-            this.computedText = ko.computed( function () {
+            this.computedText = ko.pureComputed({
+                read: function () {
                 var nbrDaysToAdd = 50;
                 var enLCIDDec = "1033";
                 var svLCIDDec = "1053";
-                var localeString = localeDict[enLCIDDec];
+                //var localeString = localeDict[enLCIDDec];
+                var localeString = localeDict[svLCIDDec];
                 var dateInFuture = addDays(this.startDate(), nbrDaysToAdd);
                 var text = this.startDate().toLocaleDateString(localeString)+ " är en " + 
                     getDayName(this.startDate(), localeString) + ". " + nbrDaysToAdd + 
                     " dagar senare (" + dateInFuture.toLocaleDateString(localeString) + ") är det en " + 
                     getDayName(dateInFuture, localeString) + ".";
                 return text;
-            }, this);
+                },
+                owner: this
+            });
         };
 
         ko.applyBindings(new ViewModel());
