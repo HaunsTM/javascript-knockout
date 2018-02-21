@@ -8,13 +8,14 @@
 
     <script src="http://kendo.cdn.telerik.com/2018.1.117/js/jquery.min.js"></script>
     <script src="http://kendo.cdn.telerik.com/2018.1.117/js/kendo.all.min.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2018.1.117/js/messages/kendo.messages.sv-SE.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-kendo/0.9.8/knockout-kendo.min.js"></script>
 
 </head>
 <body>
         <!-- https://rniemeyer.github.io/knockout-kendo/web/DatePicker.html -->
-        <input id="myDatePicker" data-bind="kendoDatePicker: { value: startDate, max: maxDate, min: minDate }" />
+        <input id="myDatePicker" data-bind="kendoDatePicker: { value: startDate, max: maxDate, min: minDate, format: 'yyyy-MM-dd' }" />
         <hr/>
         <button data-bind="click: setToToday">Set to Today</button>
         <hr/>
@@ -31,10 +32,6 @@
         };
 
         ko.applyBindings(new ViewModel());
-
-        $("#myDatePicker").kendoDatePicker({
-            format: "yyyy-MM-dd"
-        });
 
     </script>
 </body>

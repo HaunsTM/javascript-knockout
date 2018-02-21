@@ -8,6 +8,7 @@
 
     <script src="http://kendo.cdn.telerik.com/2018.1.117/js/jquery.min.js"></script>
     <script src="http://kendo.cdn.telerik.com/2018.1.117/js/kendo.all.min.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2018.1.117/js/messages/kendo.messages.sv-SE.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-kendo/0.9.8/knockout-kendo.min.js"></script>
 
@@ -19,7 +20,7 @@
         <input type="checkbox" data-bind="checked: enabled" /> Enabled<br/>
         <button data-bind="click: setToNow">Set to now</button>
         <hr/>
-        <input id="myTimePicker" data-bind="kendoTimePicker: { value: startTime, min: minTime, max: maxTime, enabled: enabled, isOpen: isOpen }" />
+        <input id="myTimePicker" data-bind="kendoTimePicker: { value: startTime, min: minTime, max: maxTime, enabled: enabled, isOpen: isOpen, format: 'HH:mm'  }" />
         <hr/>
         <div data-bind="text: startTime"> </div>
 
@@ -36,10 +37,6 @@
         };
 
         ko.applyBindings(new ViewModel());
-
-        $("#myTimePicker").kendoDatePicker({
-            format: "HH:mm"
-        });
 
     </script>
 </body>
