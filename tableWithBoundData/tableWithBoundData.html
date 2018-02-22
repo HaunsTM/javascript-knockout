@@ -1,0 +1,57 @@
+<html>
+    <head>
+
+        <title>Table with bound data</title>
+        <meta http-equiv="content-type" content="text/html" charset="UTF-8" />
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.blueopal.min.css" />
+    
+
+    
+    </head>
+    <body>
+        <div id="resp-table">
+            <div id="resp-table-header">
+                <div class="table-header-cell">Aktivitet</div>
+                <div class="table-header-cell">Angående</div>
+                <div class="table-header-cell">Kort Beskrivning</div>
+                <div class="table-header-cell">Datum</div>
+                <div class="table-header-cell">Tid</div>
+                <div class="table-header-cell">Dag</div>
+                <div class="table-header-cell">Beroende</div>
+                <div class="table-header-cell">Dagar</div>
+                <div class="table-header-cell">Tid mall</div>
+                <div class="table-header-cell">Framräknad Dag</div>
+                <div class="table-header-cell">Click</div>
+            </div>
+            <div id="resp-table-body" data-bind="foreach: items">
+                <div class="resp-table-row">
+                    <div class="table-body-cell" data-bind="text: activityName"></div>
+                    <div class="table-body-cell" data-bind="text: regarding"></div>
+                    <div class="table-body-cell" data-bind="text: note"></div>
+                    <div class="table-body-cell"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }" /></div>
+                    <div class="table-body-cell" data-bind="text: time"></div>
+                    <div class="table-body-cell" data-bind="text: day"></div>
+                    <div class="table-body-cell" data-bind="text: dependency"></div>
+                    <div class="table-body-cell" data-bind="text: daysToAdd"></div>
+                    <div class="table-body-cell" data-bind="text: timeTemplate"></div>
+                    <div class="table-body-cell" data-bind="text: calculatedDayInFuture"></div>
+                    <div class="table-body-cell" data-bind="text: btnCalculateGrid"><button data-bind="click: incrementClickCounter">Click me</button></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script src="scripts/jquery.min.js"></script>
+        <script src="scripts/kendo.all.min.js"></script>
+        <script src="scripts/kendo.messages.sv-SE.min.js"></script>
+        <script src="scripts/knockout-min.js"></script>
+        <script src="scripts/knockout-kendo.min.js"></script>
+        
+        <script src="scripts/timeCalculator.js"></script>
+        <script src="scripts/main.js"></script>
+
+    </body>
+</html>

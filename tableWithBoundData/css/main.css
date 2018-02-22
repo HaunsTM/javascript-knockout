@@ -1,0 +1,35 @@
+
+body {
+    font-family: "Segoe UI";
+    color: #444444;
+}
+#resp-table {
+    display: table;
+}
+
+#resp-table-header {
+    display: table-header-group;
+    background-color: rgba(243,243,243,1);
+    font-weight: bold;
+}
+
+.table-header-cell {
+    display: table-cell;
+    padding: 10px;
+    text-align: justify;
+    border-bottom: 1px solid grey;
+}
+
+#resp-table-body {
+    display: table-row-group;
+}
+
+.resp-table-row {
+    display: table-row;
+}
+
+.table-body-cell {
+    display: table-cell;
+}
+
+.dirty { border: solid yellow 2px; }
