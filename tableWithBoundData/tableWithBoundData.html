@@ -11,35 +11,57 @@
     
     </head>
     <body>
-        <div id="resp-table">
-            <div id="resp-table-header">
-                <div class="table-header-cell">Aktivitet</div>
-                <div class="table-header-cell">Angående</div>
-                <div class="table-header-cell">Kort Beskrivning</div>
-                <div class="table-header-cell">Datum</div>
-                <div class="table-header-cell">Tid</div>
-                <div class="table-header-cell">Dag</div>
-                <div class="table-header-cell">Beroende</div>
-                <div class="table-header-cell">Dagar</div>
-                <div class="table-header-cell">Tid mall</div>
-                <div class="table-header-cell">Framräknad Dag</div>
-                <div class="table-header-cell">Click</div>
-            </div>
-            <div id="resp-table-body" data-bind="foreach: items">
-                <div class="resp-table-row" data-bind="css: { showDirtyStyle: dirtyFlag.isDirty }">                   
-                    <div class="table-body-cell"><span data-bind="text: activityName"></span></div>
-                    <div class="table-body-cell"><span data-bind="text: regarding"></span></div>
-                    <div class="table-body-cell"><input class="k-textbox" data-bind="value: note"></input></div>
-                    <div class="table-body-cell"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }" /></div>
-                    <div class="table-body-cell"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }"></span></div>
-                    <div class="table-body-cell"><span data-bind="text: day"></span></div>
-                    <div class="table-body-cell"><span data-bind="text: dependency"></span></div>
-                    <div class="table-body-cell"><span data-bind="text: daysToAdd"></span></div>
-                    <div class="table-body-cell"><span data-bind="text: timeTemplate"></span></div>
-                    <div class="table-body-cell"><span data-bind="text: calculatedDayInFuture"></span></div>
-                    <div class="table-body-cell"><button data-bind="click: btnCalculateGrid">Click me</button></div>              
+        <div class="flex-container-column">
+            <section>
+                <div id="resp-table">
+                    <div id="resp-table-header">
+                        <div class="table-header-cell">Aktivitet</div>
+                        <div class="table-header-cell">Angående</div>
+                        <div class="table-header-cell">Kort Beskrivning</div>
+                        <div class="table-header-cell">Datum</div>
+                        <div class="table-header-cell">Tid</div>
+                        <div class="table-header-cell">Dag</div>
+                        <div class="table-header-cell">Beroende</div>
+                        <div class="table-header-cell">Dagar</div>
+                        <div class="table-header-cell">Tid mall</div>
+                        <div class="table-header-cell">Framräknad Dag</div>
+                        <div class="table-header-cell"></div>
+                    </div>
+                    <div id="resp-table-body" data-bind="foreach: items">
+                        <div class="resp-table-row" data-bind="css: { showDirtyStyle: dirtyFlag.isDirty }">                   
+                            <div class="table-body-cell"><span data-bind="text: activityName"></span></div>
+                            <div class="table-body-cell"><span data-bind="text: regarding"></span></div>
+                            <div class="table-body-cell"><input class="k-textbox" data-bind="value: note"></input></div>
+                            <div class="table-body-cell"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }" /></div>
+                            <div class="table-body-cell"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }"></span></div>
+                            <div class="table-body-cell"><span data-bind="text: day"></span></div>
+                            <div class="table-body-cell"><span data-bind="text: dependency"></span></div>
+                            <div class="table-body-cell"><span data-bind="text: daysToAdd"></span></div>
+                            <div class="table-body-cell"><span data-bind="text: timeTemplate"></span></div>
+                            <div class="table-body-cell"><span data-bind="text: calculatedDayInFuture"></span></div>
+                            <div class="table-body-cell">
+                                <a class="image-button-style" href="#" data-bind="click: btnCalculateGrid">
+                                    <img src="images/Update_16.png" alt="Update grid based on this row" border="0" />
+                                </a>
+                            </div>              
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
+            <section>
+                <div class="flex-container-button-row">
+                    <a href="#" class="image-button-style">
+                        <img src="images/Save_16.png" alt="Save" border="0" />
+                        <br/>
+                        Spara
+                    </a>
+                    <a href="#" class="image-button-style">
+                        <img src="images/SaveAndClose_16.png" alt="Save and Close" border="0" />
+                        <br/>
+                        Spara stäng
+                    </a>
+                </div>
+            </section>
         </div>
         <div data-bind="text: ko.toJSON(dirtyItems)"></div>
 

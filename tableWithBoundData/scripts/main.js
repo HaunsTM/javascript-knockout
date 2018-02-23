@@ -22,8 +22,8 @@ ko.dirtyFlag = function(root, isInitiallyDirty) {
 };
 
 
-function Item(id, activityName, regarding, note, date, time, dependency, daysToAdd) {
-    this.id = ko.observable(id);
+function Item(entityId, activityName, regarding, note, date, time, dependency, daysToAdd) {
+    this.entityId = ko.observable(entityId);
 
     this.activityName = ko.observable(activityName);
     this.regarding = ko.observable(regarding);
