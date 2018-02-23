@@ -32,4 +32,8 @@ body {
     display: table-cell;
 }
 
-.dirty { border: solid yellow 2px; }
+.showDirtyStyle { 
+    font-style: italic;
+    font-size: larger;
+    padding: 1rem 0;
+}

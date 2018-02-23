@@ -26,23 +26,22 @@
                 <div class="table-header-cell">Click</div>
             </div>
             <div id="resp-table-body" data-bind="foreach: items">
-                <div class="resp-table-row">
-                    <div class="table-body-cell" data-bind="text: activityName"></div>
-                    <div class="table-body-cell" data-bind="text: regarding"></div>
-                    <div class="table-body-cell" data-bind="text: note"></div>
+                <div class="resp-table-row" data-bind="css: { showDirtyStyle: dirtyFlag.isDirty }">                   
+                    <div class="table-body-cell"><span data-bind="text: activityName"></span></div>
+                    <div class="table-body-cell"><span data-bind="text: regarding"></span></div>
+                    <div class="table-body-cell"><input class="k-textbox" data-bind="value: note"></input></div>
                     <div class="table-body-cell"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }" /></div>
-                    <div class="table-body-cell" data-bind="text: time"></div>
-                    <div class="table-body-cell" data-bind="text: day"></div>
-                    <div class="table-body-cell" data-bind="text: dependency"></div>
-                    <div class="table-body-cell" data-bind="text: daysToAdd"></div>
-                    <div class="table-body-cell" data-bind="text: timeTemplate"></div>
-                    <div class="table-body-cell" data-bind="text: calculatedDayInFuture"></div>
-                    <div class="table-body-cell" data-bind="text: btnCalculateGrid"><button data-bind="click: incrementClickCounter">Click me</button></div>
+                    <div class="table-body-cell"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }"></span></div>
+                    <div class="table-body-cell"><span data-bind="text: day"></span></div>
+                    <div class="table-body-cell"><span data-bind="text: dependency"></span></div>
+                    <div class="table-body-cell"><span data-bind="text: daysToAdd"></span></div>
+                    <div class="table-body-cell"><span data-bind="text: timeTemplate"></span></div>
+                    <div class="table-body-cell"><span data-bind="text: calculatedDayInFuture"></span></div>
+                    <div class="table-body-cell"><button data-bind="click: btnCalculateGrid">Click me</button></div>              
                 </div>
             </div>
         </div>
-
-
+        <div data-bind="text: ko.toJSON(dirtyItems)"></div>
 
         <script src="scripts/jquery.min.js"></script>
         <script src="scripts/kendo.all.min.js"></script>
