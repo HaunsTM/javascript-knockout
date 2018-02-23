@@ -50,15 +50,11 @@
             </section>
             <section>
                 <div class="flex-container-button-row">
-                    <a href="#" class="image-button-style">
-                        <img src="images/Save_16.png" alt="Save" border="0" />
-                        <br/>
+                    <a data-bind="click: $root.clickedOnSave" href="#" class="image-button-style">
                         Spara
                     </a>
-                    <a href="#" class="image-button-style">
-                        <img src="images/SaveAndClose_16.png" alt="Save and Close" border="0" />
-                        <br/>
-                        Spara stäng
+                    <a data-bind="click: $root.clickedOnSaveAndExit" href="#" class="image-button-style">
+                        Spara och stäng
                     </a>
                 </div>
             </section>

@@ -6,11 +6,13 @@ body {
 
 a {
     text-decoration: none;
-    color: #444444;
-}
-
-a:hover {
     font-weight: bold;
+    color: #444444;   
+}
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #444444;    
 }
 
 .flex-container-column{
@@ -40,7 +42,7 @@ a:hover {
     display: table-cell;
     text-align: justify;
     padding: 0.5rem 0;
-    border-bottom: 1px solid grey;
+    border-bottom: 0.1px solid grey;
 }
 
 #resp-table-body {

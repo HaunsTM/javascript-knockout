@@ -58,11 +58,7 @@ var ViewModel = function(items) {
         new Item(1, "Header Venture booked", "", "Satsningen ska vara anmäld", "2017-12-04", "00:00", "Releaseday", "45"),
         new Item(2, "Circulation Deadline Preliminary", "", "Ev preliminär upplaga", "", "", "dependency", "")
     ]);
-    
-    this.save = function() {
-        alert("Sending changes to server: " + ko.toJSON(this.dirtyItems));  
-    };
-    
+        
     this.dirtyItems = ko.computed(function() {
         return ko.utils.arrayFilter(this.items(), function(item) {
             return item.dirtyFlag.isDirty();
@@ -72,6 +68,15 @@ var ViewModel = function(items) {
     this.isDirty = ko.computed(function() {
         return this.dirtyItems().length > 0;
     }, this);
+
+    this.clickedOnSave = function (model, event) {
+        var dataToSave = ko.toJSON(this.dirtyItems);
+        console.log('Saving data: '+ dataToSave );
+    }
+
+    this.clickedOnSaveAndExit = function (model, event) {        
+        console.log('Closing');
+    };
 };
 
 ko.applyBindings(new ViewModel());
