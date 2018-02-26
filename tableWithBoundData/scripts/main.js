@@ -103,14 +103,18 @@ var viewModel = function(items) {
     
     this.dirtyItems = ko.computed(function() {
         var tempDirtyItems = [];
-        var currentActivityCategoryIndex = this.activityCategories().length;
+        var activityCategories = this.activityCategories();
+        var currentActivityCategoryIndex = activityCategories.length;
 
         while (currentActivityCategoryIndex--) {
-            var currentActivityCategory = this.activityCategories[currentActivityCategoryIndex];
-            var currentActivityIndex = currentActivityCategory[currentActivityCategoryIndex].length;
+            var currentActivityCategory = activityCategories[currentActivityCategoryIndex];
+            console.log(currentActivityCategory.categoryName())
 
-            while (currentActivityCategoryIndex--) {
-                var currentActivity = currentActivityCategory[currentActivityCategoryIndex];
+            var currentActivities = currentActivityCategory.activities();
+            var currentActivityIndex = currentActivities.length;
+
+            while (currentActivityIndex--) {
+                var currentActivity = currentActivities[currentActivityIndex];
                 
                 if (currentActivity.dirtyFlag.isDirty()){
                     tempDirtyItems.push(currentActivity);
@@ -119,15 +123,7 @@ var viewModel = function(items) {
         }
 
         return tempDirtyItems;
-        /*
-        return ko.utils.arrayFilter(this.activityCategories(), function(activityCategory) {
-            return ko.utils.arrayFilter(activityCategory.activities(), function(activity) {
-                console.log(activity.activityName() + " is: " + activity.dirtyFlag.isDirty());
-                if(activity.dirtyFlag.isDirty()){debugger;}
-                return activity.dirtyFlag.isDirty();
-            });
-        });
-        */
+        
     }, this);
     
     this.isDirty = ko.computed(function() {
