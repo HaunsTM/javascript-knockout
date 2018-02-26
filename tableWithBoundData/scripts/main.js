@@ -25,7 +25,7 @@ ko.dirtyFlag = function(root, isInitiallyDirty) {
     return result;
 };
 
-var ActicityCategory = function (categoryName, activities) {
+ var ActivityCategory = function (categoryName, activities) {
     this.categoryName = ko.observable(categoryName);
     this.activities = ko.observableArray(activities);
 }
@@ -71,8 +71,8 @@ var viewModel = function(items) {
     ]);
 
 */
-(entityId, activityName, regarding, note, date, time, dependency, daysToAdd, timeTemplate, calculatedDayInFuture)
-    this.categories = ko.observableArray([
+
+    this.activityCategories = ko.observableArray([
         new ActivityCategory("Order Dates", [
                 new Activity(1, "Header Venture booked", "", "Satsningen ska vara anmäld", "2017-12-04", "00:00", "Releaseday", "45", "00:00:00", "2017-12-04"),
                 new Activity(2, "Circulation Deadline Preliminary", "", "Ev preliminär upplaga", "", "", "Circulation Deadline Defined", "", "00:00:00", ""),
@@ -100,12 +100,34 @@ var viewModel = function(items) {
             ]
         )
     ]);
-
-        
+    
     this.dirtyItems = ko.computed(function() {
-        return ko.utils.arrayFilter(this.items(), function(item) {
-            return item.dirtyFlag.isDirty();
+        var tempDirtyItems = [];
+        var currentActivityCategoryIndex = this.activityCategories.length;
+
+        while (currentActivityCategoryIndex--) {
+            var currentActivityCategory = this.activityCategories[currentActivityCategoryIndex];
+            var currentActivityIndex = currentActivityCategory[currentActivityCategoryIndex].length;
+
+            while (currentActivityCategoryIndex--) {
+                var currentActivity = currentActivityCategory[currentActivityCategoryIndex];
+                
+                if (currentActivity.dirtyFlag.isDirty()){
+                    tempDirtyItems.push(currentActivity);
+                }
+            }
+        }
+
+        return tempDirtyItems;
+        /*
+        return ko.utils.arrayFilter(this.activityCategories(), function(activityCategory) {
+            return ko.utils.arrayFilter(activityCategory.activities(), function(activity) {
+                console.log(activity.activityName() + " is: " + activity.dirtyFlag.isDirty());
+                if(activity.dirtyFlag.isDirty()){debugger;}
+                return activity.dirtyFlag.isDirty();
+            });
         });
+        */
     }, this);
     
     this.isDirty = ko.computed(function() {

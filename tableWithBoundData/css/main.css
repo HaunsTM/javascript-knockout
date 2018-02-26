@@ -27,12 +27,12 @@ a {
 }
 
 
-#resp-table {
+.table {
     display: table;
     width: 100%;
 }
 
-#resp-table-header {
+.table-header {
     display: table-header-group;
     background-color: rgba(243,243,243,1);
     font-weight: bold;
@@ -45,11 +45,11 @@ a {
     border-bottom: 0.1px solid grey;
 }
 
-#resp-table-body {
+.table-body {
     display: table-row-group;
 }
 
-.resp-table-row {
+.table-row {
     display: table-row;
     padding: 0.5rem 0;
 }
