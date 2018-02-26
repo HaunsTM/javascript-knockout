@@ -66,22 +66,46 @@
                 <section>
                     <div class="table">
                         <div class="table-header">
-                            <div class="table-header-cell">Aktivitet</div>
-                            <div class="table-header-cell">Angående</div>
-                            <div class="table-header-cell">Kort Beskrivning</div>
-                            <div class="table-header-cell">Datum</div>
-                            <div class="table-header-cell">Tid</div>
-                            <div class="table-header-cell">Dag</div>
-                            <div class="table-header-cell">Beroende</div>
-                            <div class="table-header-cell">Dagar</div>
-                            <div class="table-header-cell">Tid mall</div>
-                            <div class="table-header-cell">Framräknad Dag</div>
-                            <div class="table-header-cell"></div>
+                            <div class="table-cell table-header-cell">Aktivitet</div>
+                            <div class="table-cell table-header-cell">Angående</div>
+                            <div class="table-cell table-header-cell">Kort Beskrivning</div>
+                            <div class="table-cell table-header-cell">Datum</div>
+                            <div class="table-cell table-header-cell">Tid</div>
+                            <div class="table-cell table-header-cell">Dag</div>
+                            <div class="table-cell table-header-cell">Beroende</div>
+                            <div class="table-cell table-header-cell">Dagar</div>
+                            <div class="table-cell table-header-cell">Tid mall</div>
+                            <div class="table-cell table-header-cell">Framräknad Dag</div>
+                            <div class="table-cell table-header-cell"></div>
                         </div>
 
-                        <section data-bind="foreach: activityCategories">
+                        <!---->
+                        <div class="table-body" data-bind="foreach: activityCategories">
+                            
+                            <h1 data-bind="text: categoryName"></h1>
 
-                        </section>
+                            <section data-bind="foreach: activities">
+                                    <div class="table-row" data-bind="css: { showDirtyStyle: dirtyFlag.isDirty }">                   
+                                        <div class="table-cell"><span data-bind="text: activityName"></span></div>
+                                        <div class="table-cell"><span data-bind="text: regarding"></span></div>
+                                        <div class="table-cell"><input type="text" data-bind="value: note"/></div>
+                                        <div class="table-cell"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }" /></div>
+                                        <div class="table-cell"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }"></div>
+                                        <div class="table-cell"><span data-bind="text: day"></span></div>
+                                        <div class="table-cell"><span data-bind="text: dependency"></span></div>
+                                        <div class="table-cell"><span data-bind="text: daysToAdd"></span></div>
+                                        <div class="table-cell"><span data-bind="text: timeTemplate"></span></div>
+                                        <div class="table-cell"><span data-bind="text: calculatedDayInFuture"></span></div>
+                                        <div class="table-cell">
+                                            <a class="image-button-style" href="#" data-bind="click: btnCalculateGrid">
+                                                <img src="images/Update_16.png" alt="Update grid based on this row" border="0" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </section>
+                                
+                        </div>
+                        
                     </div>
                 </section>
 

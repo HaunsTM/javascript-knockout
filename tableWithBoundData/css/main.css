@@ -38,15 +38,14 @@ a {
     font-weight: bold;
 }
 
+.table-body {
+    display: table-row-group;
+}
+
 .table-header-cell {
-    display: table-cell;
     text-align: justify;
     padding: 0.5rem 0;
     border-bottom: 0.1px solid grey;
-}
-
-.table-body {
-    display: table-row-group;
 }
 
 .table-row {
@@ -54,7 +53,7 @@ a {
     padding: 0.5rem 0;
 }
 
-.table-body-cell {
+.table-cell {
     display: table-cell;
 }
 

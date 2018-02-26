@@ -103,7 +103,7 @@ var viewModel = function(items) {
     
     this.dirtyItems = ko.computed(function() {
         var tempDirtyItems = [];
-        var currentActivityCategoryIndex = this.activityCategories.length;
+        var currentActivityCategoryIndex = this.activityCategories().length;
 
         while (currentActivityCategoryIndex--) {
             var currentActivityCategory = this.activityCategories[currentActivityCategoryIndex];
