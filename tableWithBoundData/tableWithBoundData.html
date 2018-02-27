@@ -4,6 +4,7 @@
         <title>Table with bound data</title>
         <meta http-equiv="content-type" content="text/html" charset="UTF-8" />
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/table.css">
         <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.common.min.css" />
         <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.blueopal.min.css" />
     
@@ -11,44 +12,52 @@
     
     </head>
     <body>
-    <!--
         <div class="flex-container-column">
             <section>
                 <div class="table">
-                    <div class="table-header">
-                        <div class="table-header-cell">Aktivitet</div>
-                        <div class="table-header-cell">Angående</div>
-                        <div class="table-header-cell">Kort Beskrivning</div>
-                        <div class="table-header-cell">Datum</div>
-                        <div class="table-header-cell">Tid</div>
-                        <div class="table-header-cell">Dag</div>
-                        <div class="table-header-cell">Beroende</div>
-                        <div class="table-header-cell">Dagar</div>
-                        <div class="table-header-cell">Tid mall</div>
-                        <div class="table-header-cell">Framräknad Dag</div>
-                        <div class="table-header-cell"></div>
-                    </div>
-                    <div class="table-body" data-bind="foreach: items">
-                        <div class="table-row" data-bind="css: { showDirtyStyle: dirtyFlag.isDirty }">                   
-                            <div class="table-body-cell"><span data-bind="text: activityName"></span></div>
-                            <div class="table-body-cell"><span data-bind="text: regarding"></span></div>
-                            <div class="table-body-cell"><input type="text" data-bind="value: note"></input></div>
-                            <div class="table-body-cell"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }" /></div>
-                            <div class="table-body-cell"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }"></span></div>
-                            <div class="table-body-cell"><span data-bind="text: day"></span></div>
-                            <div class="table-body-cell"><span data-bind="text: dependency"></span></div>
-                            <div class="table-body-cell"><span data-bind="text: daysToAdd"></span></div>
-                            <div class="table-body-cell"><span data-bind="text: timeTemplate"></span></div>
-                            <div class="table-body-cell"><span data-bind="text: calculatedDayInFuture"></span></div>
-                            <div class="table-body-cell">
-                                <a class="image-button-style" href="#" data-bind="click: btnCalculateGrid">
-                                    <img src="images/Update_16.png" alt="Update grid based on this row" border="0" />
-                                </a>
-                            </div>              
+                    <div class="thead">
+                        <div class="tr">
+                            <div class="th">Aktivitet</div>
+                            <div class="th">Angående</div>
+                            <div class="th">Kort Beskrivning</div>
+                            <div class="th">Datum</div>
+                            <div class="th">Tid</div>
+                            <div class="th">Dag</div>
+                            <div class="th">Beroende</div>
+                            <div class="th">Dagar</div>
+                            <div class="th">Tid mall</div>
+                            <div class="th">Framräknad Dag</div>
+                            <div class="th"></div>
                         </div>
                     </div>
+
+                    <!-- ko foreach: activityCategories -->
+                        <div class="tbody">
+                            <!-- ko foreach: activities -->
+                            <div class="tr">                   
+                                    <div class="td"><span data-bind="text: activityName, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                    <div class="td"><span data-bind="text: regarding, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                    <div class="td"><input type="text" data-bind="value: note, css: { showDirtyStyle: dirtyFlag.isDirty }"/></div>
+                                    <div class="td"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }, css: { showDirtyStyle: dirtyFlag.isDirty }" /></div>
+                                    <div class="td"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }, css: { showDirtyStyle: dirtyFlag.isDirty }"></div>
+                                    <div class="td"><span data-bind="text: day, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                    <div class="td"><span data-bind="text: dependency, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                    <div class="td"><span data-bind="text: daysToAdd, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                    <div class="td"><span data-bind="text: timeTemplate, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                    <div class="td"><span data-bind="text: calculatedDayInFuture, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                    <div class="td">
+                                        <a class="image-button-style" href="#" data-bind="click: btnCalculateGrid">
+                                            <img src="images/Update_16.png" alt="Update grid based on this row" border="0" />
+                                        </a>
+                                    </div>
+                                </div>
+                            <!-- /ko -->
+                        </div>
+                    <!-- /ko -->
                 </div>
+                        
             </section>
+
             <section>
                 <div class="flex-container-button-row">
                     <a data-bind="click: $root.clickedOnSave" href="#" class="image-button-style">
@@ -60,73 +69,6 @@
                 </div>
             </section>
         </div>
-    -->
-        <div>
-            <div class="flex-container-column">
-                <section>
-                    <div class="table">
-                        <div class="table-header">
-                            <div class="table-cell table-header-cell">Aktivitet</div>
-                            <div class="table-cell table-header-cell">Angående</div>
-                            <div class="table-cell table-header-cell">Kort Beskrivning</div>
-                            <div class="table-cell table-header-cell">Datum</div>
-                            <div class="table-cell table-header-cell">Tid</div>
-                            <div class="table-cell table-header-cell">Dag</div>
-                            <div class="table-cell table-header-cell">Beroende</div>
-                            <div class="table-cell table-header-cell">Dagar</div>
-                            <div class="table-cell table-header-cell">Tid mall</div>
-                            <div class="table-cell table-header-cell">Framräknad Dag</div>
-                            <div class="table-cell table-header-cell"></div>
-                        </div>
-
-                        <!---->
-                        <div class="table-body" data-bind="foreach: activityCategories">
-                            
-                            <h1 data-bind="text: categoryName"></h1>
-
-                            <section data-bind="foreach: activities">
-                                    <div class="table-row" data-bind="css: { showDirtyStyle: dirtyFlag.isDirty }">                   
-                                        <div class="table-cell"><span data-bind="text: activityName"></span></div>
-                                        <div class="table-cell"><span data-bind="text: regarding"></span></div>
-                                        <div class="table-cell"><input type="text" data-bind="value: note"/></div>
-                                        <div class="table-cell"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }" /></div>
-                                        <div class="table-cell"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }"></div>
-                                        <div class="table-cell"><span data-bind="text: day"></span></div>
-                                        <div class="table-cell"><span data-bind="text: dependency"></span></div>
-                                        <div class="table-cell"><span data-bind="text: daysToAdd"></span></div>
-                                        <div class="table-cell"><span data-bind="text: timeTemplate"></span></div>
-                                        <div class="table-cell"><span data-bind="text: calculatedDayInFuture"></span></div>
-                                        <div class="table-cell">
-                                            <a class="image-button-style" href="#" data-bind="click: btnCalculateGrid">
-                                                <img src="images/Update_16.png" alt="Update grid based on this row" border="0" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </section>
-                                
-                        </div>
-                        
-                    </div>
-                </section>
-
-                <section>
-                    <div class="flex-container-button-row">
-                        <a data-bind="click: $root.clickedOnSave" href="#" class="image-button-style">
-                            Spara
-                        </a>
-                        <a data-bind="click: $root.clickedOnSaveAndExit" href="#" class="image-button-style">
-                            Spara och stäng
-                        </a>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-
-
-
-
-
 
         <div data-bind="text: ko.toJSON(dirtyItems)"></div>
 

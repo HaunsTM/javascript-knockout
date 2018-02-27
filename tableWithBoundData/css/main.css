@@ -27,35 +27,7 @@ a {
 }
 
 
-.table {
-    display: table;
-    width: 100%;
-}
 
-.table-header {
-    display: table-header-group;
-    background-color: rgba(243,243,243,1);
-    font-weight: bold;
-}
-
-.table-body {
-    display: table-row-group;
-}
-
-.table-header-cell {
-    text-align: justify;
-    padding: 0.5rem 0;
-    border-bottom: 0.1px solid grey;
-}
-
-.table-row {
-    display: table-row;
-    padding: 0.5rem 0;
-}
-
-.table-cell {
-    display: table-cell;
-}
 
 .image-button-style {
     padding: 0.2rem;
