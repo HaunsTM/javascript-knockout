@@ -25,23 +25,27 @@ ko.dirtyFlag = function(root, isInitiallyDirty) {
     return result;
 };
 
-var Metadata =   function(lCIDDec, tableHeaderLabels) {
+var Metadata =   function(data) {
     var self = this;
-    self.entityId = ko.observable(entityId);
-}
-
-var TableHeaderLabels = function (activityName, regarding, note, date, time, day, dependency, daysToAdd, timeTemplate, calculatedDayInFuture) {
-    var self = this;
-    self.activityName = ko.observable(activityName);
-    self.regarding = ko.observable(regarding);
-    self.note = ko.observable(note);
-    self.date = ko.observable(date);
-    self.time = ko.observable(time);
-    self.day = ko.observable(day);
-    self.dependency = ko.observable(dependency);
-    self.daysToAdd = ko.observable(daysToAdd);
-    self.timeTemplate = ko.observable(timeTemplate);
-    self.calculatedDayInFuture = ko.observable(calculatedDayInFuture);
+    self.lCIDDec = ko.observable(data.lCIDDec);
+    
+    self.activityName = ko.observable(data.tableHeaderLabels.activityName);
+    self.regarding = ko.observable(data.tableHeaderLabels.regarding);
+    self.note = ko.observable(data.tableHeaderLabels.note);
+    self.date = ko.observable(data.tableHeaderLabels.date);
+    self.time = ko.observable(data.tableHeaderLabels.time);
+    self.day = ko.observable(data.tableHeaderLabels.day);
+    self.dependency = ko.observable(data.tableHeaderLabels.dependency);
+    self.daysToAdd = ko.observable(data.tableHeaderLabels.daysToAdd);
+    self.timeTemplate = ko.observable(data.tableHeaderLabels.timeTemplate);
+    self.calculatedDayInFuture = ko.observable(data.tableHeaderLabels.calculatedDayInFuture);
+    
+    self.updateGridButtonTitle = ko.observable(data.gridButtons.updateGridButtonTitle);
+        
+    self.saveLabel = ko.observable(data.actionButtons.saveLabel);
+    self.saveTitle = ko.observable(data.actionButtons.saveTitle);
+    self.saveAndCloseLabel = ko.observable(data.actionButtons.saveAndCloseLabel);
+    self.saveAndCloseTitle = ko.observable(data.actionButtons.saveAndCloseTitle);
 }
 
 
@@ -81,8 +85,10 @@ var ActivityCategory = function (categoryName, activities) {
     self.activities = ko.observableArray(activities); 
 }
 
-var ProductionScheduleModel = function(metadata, items) {
+var ProductionScheduleModel = function(data, items) {
     var self = this;
+    
+    self.metadata = new Metadata(data);
     
     self.activityCategories = ko.observableArray(items);
     
@@ -116,27 +122,58 @@ var ProductionScheduleModel = function(metadata, items) {
     }, self);
 
     self.calculateGridBasedOnThisRow = function (activity) {        
-        var dataThatGridShouldBeRecalculatedOn = ko.toJSON(activity);
         //send dataThatGridShouldBeRecalculatedOn to server
-        //wait for response, when it arrives
-        console.log( dataThatGridShouldBeRecalculatedOn);
+        //wait for response, when it arrives, update entire model based on this data
+        var dataThatGridShouldBeRecalculatedOn = ko.toJSON(activity);
+        
+        //TODO: Reset dirty state after updating model!
+        self.activityCategories(fakeJSONResponseData);
+        console.log("Recalculated grid based on: " + dataThatGridShouldBeRecalculatedOn);        
     };
 
     self.clickedOnSave = function (model, event) {
+        //save dirty state items to system
         var dataToSave = ko.toJSON(self.dirtyItems);
-        console.log('Saving data: '+ dataToSave );
-        self.activityCategories(viewModel1);
+        console.log('Saving edited data: '+ dataToSave );
     }
 
     self.clickedOnSaveAndExit = function (model, event) {        
+        //save dirty state items to system
+        var dataToSave = ko.toJSON(self.dirtyItems);
+        console.log('Saving edited data: '+ dataToSave );
+
+        //close view
         console.log('Closing');
     };
 }
 
-var viewModel = new ProductionScheduleModel({
-    lCIDDec : "1053"
-},
-    
+var viewModel = new ProductionScheduleModel(
+    //Here we add some settings data
+    {
+        lCIDDec : "1053", 
+        tableHeaderLabels : { 
+            "activityName" : "Aktivitet", 
+            "regarding" : "Angående", 
+            "note" : "Kort beskrivning", 
+            "date" : "Datum", 
+            "time" : "Tid", 
+            "day" : "Dag", 
+            "dependency" : "Beroende", 
+            "daysToAdd" : "Dagar", 
+            "timeTemplate" : "Tid mall", 
+            "calculatedDayInFuture" : "Framräknad Dag"
+        },
+        gridButtons : {
+            "updateGridButtonTitle" : "Uppdatera griden baserat på den här raden"
+        },
+        actionButtons : {
+            "saveLabel" : "Spara",
+            "saveTitle" : "Spara till systemet och uppdatera vyn",
+            "saveAndCloseLabel" : "Spara och stäng",
+            "saveAndCloseTitle" : "Spara till systemet och stäng vyn"
+        }
+    }, 
+    //here we add some initial data
     [
     new ActivityCategory("Order Dates", [
             new Activity(1, "Header Venture booked", "", "Satsningen ska vara anmäld", "2017-12-04", "00:00", "Releaseday", "45", "00:00:00", "2017-12-04"),
@@ -166,7 +203,7 @@ var viewModel = new ProductionScheduleModel({
     )
 ]);
 
-var viewModel1 = [
+var fakeJSONResponseData = [
     new ActivityCategory("Order Dates", [
             new Activity(1, "1 Header Venture booked", "", "Satsningen ska vara anmäld", "2017-12-04", "00:00", "Releaseday", "45", "00:00:00", "2017-12-04"),
             new Activity(2, "1 Circulation Deadline Preliminary", "", "Ev preliminär upplaga", "", "", "Circulation Deadline Defined", "", "00:00:00", ""),

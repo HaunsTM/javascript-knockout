@@ -18,16 +18,16 @@
                 <div class="table">
                     <div class="thead">
                         <div class="tr">
-                            <div class="th">Aktivitet</div>
-                            <div class="th">Angående</div>
-                            <div class="th">Kort Beskrivning</div>
-                            <div class="th">Datum</div>
-                            <div class="th">Tid</div>
-                            <div class="th">Dag</div>
-                            <div class="th">Beroende</div>
-                            <div class="th">Dagar</div>
-                            <div class="th">Tid mall</div>
-                            <div class="th">Framräknad Dag</div>
+                            <div class="th"><span data-bind="text: metadata.activityName"></div>
+                            <div class="th"><span data-bind="text: metadata.regarding"></span></div>
+                            <div class="th"><span data-bind="text: metadata.note"></span></div>
+                            <div class="th"><span data-bind="text: metadata.date"></span></div>
+                            <div class="th"><span data-bind="text: metadata.time"></span></div>
+                            <div class="th"><span data-bind="text: metadata.day"></span></div>
+                            <div class="th"><span data-bind="text: metadata.dependency"></span></div>
+                            <div class="th"><span data-bind="text: metadata.daysToAdd"></span></div>
+                            <div class="th"><span data-bind="text: metadata.timeTemplate"></span></div>
+                            <div class="th"><span data-bind="text: metadata.calculatedDayInFuture"></span></div>
                             <div class="th"></div>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                                 <div class="td"><span data-bind="text: timeTemplate, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
                                 <div class="td"><span data-bind="text: calculatedDayInFuture, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
                                 <div class="td">
-                                    <a class="image-button-style" href="#" data-bind="click: $root.calculateGridBasedOnThisRow">
-                                        <img src="images/Update_16.png" alt="Update grid based on this row" border="0" />
+                                    <a class="image-button-style" href="#" data-bind="attr: { title: $root.metadata.updateGridButtonTitle }, click: $root.calculateGridBasedOnThisRow">
+                                        <img src="images/Update_16.png" alt="" border="0" />
                                     </a>
                                 </div>
                             </div>
@@ -61,11 +61,11 @@
 
             <section>
                 <div class="flex-container-button-row">
-                    <a data-bind="click: $root.clickedOnSave" href="#" class="image-button-style">
-                        Spara
+                    <a data-bind="attr: { title: metadata.saveTitle } ,click: $root.clickedOnSave" href="#" class="image-button-style">
+                        <span data-bind="text: metadata.saveLabel"></span>
                     </a>
-                    <a data-bind="click: $root.clickedOnSaveAndExit" href="#" class="image-button-style">
-                        Spara och stäng
+                    <a data-bind="attr: { title: metadata.saveAndCloseTitle } ,click: $root.clickedOnSaveAndExit" href="#" class="image-button-style">
+                        <span data-bind="text: metadata.saveAndCloseLabel"></span>
                     </a>
                 </div>
             </section>
