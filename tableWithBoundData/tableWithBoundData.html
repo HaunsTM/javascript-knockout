@@ -36,22 +36,22 @@
                         <div class="tbody">
                             <!-- ko foreach: activities -->
                             <div class="tr">                   
-                                    <div class="td"><span data-bind="text: activityName, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
-                                    <div class="td"><span data-bind="text: regarding, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
-                                    <div class="td"><input type="text" class="k-input" data-bind="value: note, css: { showDirtyStyle: dirtyFlag.isDirty }"/></div>
-                                    <div class="td"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }, css: { showDirtyStyle: dirtyFlag.isDirty }" /></div>
-                                    <div class="td"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }, css: { showDirtyStyle: dirtyFlag.isDirty }"></div>
-                                    <div class="td"><span data-bind="text: day, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
-                                    <div class="td"><span data-bind="text: dependency, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
-                                    <div class="td"><span data-bind="text: daysToAdd, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
-                                    <div class="td"><span data-bind="text: timeTemplate, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
-                                    <div class="td"><span data-bind="text: calculatedDayInFuture, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
-                                    <div class="td">
-                                        <a class="image-button-style" href="#" data-bind="click: $root.calculateGridBasedOnThisRow">
-                                            <img src="images/Update_16.png" alt="Update grid based on this row" border="0" />
-                                        </a>
-                                    </div>
+                                <div class="td"><span data-bind="text: activityName, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: regarding, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><input type="text" class="k-input" data-bind="value: note, css: { showDirtyStyle: dirtyFlag.isDirty }"/></div>
+                                <div class="td"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }, css: { showDirtyStyle: dirtyFlag.isDirty }" /></div>
+                                <div class="td"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }, css: { showDirtyStyle: dirtyFlag.isDirty }"></div>
+                                <div class="td"><span data-bind="text: day, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: dependency, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: daysToAdd, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: timeTemplate, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: calculatedDayInFuture, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td">
+                                    <a class="image-button-style" href="#" data-bind="click: $root.calculateGridBasedOnThisRow">
+                                        <img src="images/Update_16.png" alt="Update grid based on this row" border="0" />
+                                    </a>
                                 </div>
+                            </div>
                             <!-- /ko -->
                         </div>
                     <!-- /ko -->
