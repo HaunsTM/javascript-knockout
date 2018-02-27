@@ -48,7 +48,6 @@ var Metadata =   function(data) {
     self.saveAndCloseTitle = ko.observable(data.actionButtons.saveAndCloseTitle);
 }
 
-
 var Activity = function (entityId, activityName, regarding, note, date, time, dependency, daysToAdd, timeTemplate, calculatedDayInFuture) {
     var self = this;
     self.entityId = ko.observable(entityId);
@@ -85,12 +84,12 @@ var ActivityCategory = function (categoryName, activities) {
     self.activities = ko.observableArray(activities); 
 }
 
-var ProductionScheduleModel = function(data, items) {
+var ProductionScheduleModel = function(data, activityCategoryItems) {
     var self = this;
     
     self.metadata = new Metadata(data);
     
-    self.activityCategories = ko.observableArray(items);
+    self.activityCategories = ko.observableArray(activityCategoryItems);
     
     self.dirtyItems = ko.computed(function() {
         var tempDirtyItems = [];
@@ -134,6 +133,8 @@ var ProductionScheduleModel = function(data, items) {
     self.clickedOnSave = function (model, event) {
         //save dirty state items to system
         var dataToSave = ko.toJSON(self.dirtyItems);
+        
+        //TODO: Reset dirty state after updating model!
         console.log('Saving edited data: '+ dataToSave );
     }
 
