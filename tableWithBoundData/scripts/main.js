@@ -48,16 +48,16 @@ var Metadata =   function(data) {
     self.saveAndCloseTitle = ko.observable(data.actionButtons.saveAndCloseTitle);
 }
 
-var Activity = function (entityId, activityName, regarding, note, date, time, dependency, daysToAdd, timeTemplate, calculatedDayInFuture) {
+var Activity = function (data) {
     var self = this;
-    self.entityId = ko.observable(entityId);
+    self.entityId = ko.observable(data.entityId);
 
-    self.activityName = ko.observable(activityName);
-    self.regarding = ko.observable(regarding);
-    self.note = ko.observable(note);
+    self.activityName = ko.observable(data.activityName);
+    self.regarding = ko.observable(data.regarding);
+    self.note = ko.observable(data.note);
 
-    self.date = ko.observable(date);
-    self.time = ko.observable(time);
+    self.date = ko.observable(data.date);
+    self.time = ko.observable(data.time);
     self.day = ko.pureComputed({
         read: function () {
             var svLCIDDec = "1053";
@@ -69,26 +69,28 @@ var Activity = function (entityId, activityName, regarding, note, date, time, de
         owner: this
     });
 
-    self.dependency = ko.observable(dependency);
-    self.daysToAdd = ko.observable(daysToAdd);
-    self.timeTemplate = ko.observable(timeTemplate);
+    self.dependency = ko.observable(data.dependency);
+    self.daysToAdd = ko.observable(data.daysToAdd);
+    self.timeTemplate = ko.observable(data.timeTemplate);
 
-    self.calculatedDayInFuture = ko.observable(calculatedDayInFuture);
+    self.calculatedDayInFuture = ko.observable(data.calculatedDayInFuture);
 
     self.dirtyFlag = new ko.dirtyFlag(self);
 }
 
-var ActivityCategory = function (categoryName, activities) {
-    var self = this;
-    self.categoryName = ko.observable(categoryName);
-    self.activities = ko.observableArray(activities); 
+var ActivityCategory = function (data) {
+    let self = this;
+    let activitiesArrayObject = data.activities.map( d => new Activity(d));
+    self.categoryName = ko.observable(data.categoryName);
+    self.activities = ko.observableArray(activitiesArrayObject); 
 }
 
-var ProductionScheduleModel = function(data, activityCategoryItems) {
+var ProductionScheduleModel = function(data, activityCategoryItemsJSONData) {
     var self = this;
     
     self.metadata = new Metadata(data);
-    
+
+    var activityCategoryItems = activityCategoryItemsJSONData.map( d => new ActivityCategory(d));
     self.activityCategories = ko.observableArray(activityCategoryItems);
     
     self.dirtyItems = ko.computed(function() {
@@ -98,7 +100,6 @@ var ProductionScheduleModel = function(data, activityCategoryItems) {
 
         while (currentActivityCategoryIndex--) {
             var currentActivityCategory = activityCategories[currentActivityCategoryIndex];
-            console.log(currentActivityCategory.categoryName())
 
             var currentActivities = currentActivityCategory.activities();
             var currentActivityIndex = currentActivities.length;
@@ -176,49 +177,255 @@ var viewModel = new ProductionScheduleModel(
     }, 
     //here we add some initial data
     [
-    new ActivityCategory("Order Dates", [
-            new Activity(1, "Header Venture booked", "", "Satsningen ska vara anmäld", "2017-12-04", "00:00", "Releaseday", "45", "00:00:00", "2017-12-04"),
-            new Activity(2, "Circulation Deadline Preliminary", "", "Ev preliminär upplaga", "", "", "Circulation Deadline Defined", "", "00:00:00", ""),
-            new Activity(3, "Circulation Deadline Definite", "", "Definitiv upplaga klar", "2018-01-19", "00:00", "Bindery Finished Sheet", "5", "08:30:00", "2018-01-19"),                
-            new Activity(4, "Print Order Deadline Preliminary", "", "Ev. preliminär tryckorder", "", "", "Print Order Deadline Defined", "", "00:00:00", ""),
-            new Activity(5, "Print Order Definte", "", "Definitiv tryckorder", "2018-01-22", "09:00", "Bindery Finished Sheet", "4", "09:00:00", "2018-01-22"),
-        ]
-    ),
-    new ActivityCategory("Repro", [
-            new Activity(6, "Sheet Repro", "Ark 1", "TV-sidor till ES senast 12.00", "2018-01-23", "00:00", "Printing", "", "00:00:00", "2018-01-23"),
-            new Activity(7, "Sheet Repro", "Ark 2", "Lämning nästa vecka + tablå", "2018-01-23", "00:00", "Printing", "", "00:00:00", "2018-01-23"),
-            new Activity(8, "Sheet Repro", "Ark 3 Kryss", "Slutlämning exkl sena sidor", "2018-01-23", "00:00", "Printing", "", "00:00:00", "2018-01-23"),
-        ]
-    ),
-    new ActivityCategory("Sheet Printing", [
-            new Activity(9, "Printing", "Ark 1", "Ark ska lämnas till tryck", "2018-01-23", "15:00", "Bindery Finished Sheet", "3", "15:00:00", "2018-01-23"),
-            new Activity(10, "Printing", "Ark 2", "Ark ska lämnas till tryck", "2018-01-23", "15:00", "Bindery Finished Sheet", "3", "15:00:00", "2018-01-23"),
-            new Activity(11, "Printing", "Ark 3 Kryss", "Ark ska lämnas till tryck", "2018-01-23", "15:00", "Bindery Finished Sheet", "3", "15:00:00", "2018-01-23"),
-
-        ]
-    ),
-    new ActivityCategory("Binding", [
-            new Activity(12, "Bindery Fished Sheet", "", "Ark till häftning", "2018-01-26", "00:00", "Edition Bindery", "0", "00:00:00", "2018-01-26"),
-            new Activity(13, "Edition Bindery", "", "Normal bindningsstart", "2018-01-26", "00:00", "Releaseday", "9", "00:00:00", "2018-01-26")
-        ]
-    )
-]);
+        {
+           "categoryName":"Order Dates",
+           "activities":[
+              {
+                 "entityId":1,
+                 "activityName":"Header Venture booked",
+                 "regarding":"",
+                 "note":"Satsningen ska vara anmäld",
+                 "date":"2017-12-04",
+                 "time":"00:00",
+                 "dependency":"Releaseday",
+                 "daysToAdd":"45",
+                 "timeTemplate":"00:00:00",
+                 "calculatedDayInFuture":"2017-12-04"
+              },
+              {
+                 "entityId":2,
+                 "activityName":"Circulation Deadline Preliminary",
+                 "regarding":"",
+                 "note":"Ev preliminär upplaga",
+                 "date":"",
+                 "time":"",
+                 "dependency":"Circulation Deadline Defined",
+                 "daysToAdd":"",
+                 "timeTemplate":"00:00:00",
+                 "calculatedDayInFuture":""
+              },
+              {
+                 "entityId":3,
+                 "activityName":"Circulation Deadline Definite",
+                 "regarding":"",
+                 "note":"Definitiv upplaga klar",
+                 "date":"2018-01-19",
+                 "time":"00:00",
+                 "dependency":"Bindery Finished Sheet",
+                 "daysToAdd":"5",
+                 "timeTemplate":"08:30:00",
+                 "calculatedDayInFuture":"2018-01-19"
+              },
+              {
+                 "entityId":4,
+                 "activityName":"Print Order Deadline Preliminary",
+                 "regarding":"",
+                 "note":"Ev. preliminär tryckorder",
+                 "date":"",
+                 "time":"",
+                 "dependency":"Print Order Deadline Defined",
+                 "daysToAdd":"",
+                 "timeTemplate":"00:00:00",
+                 "calculatedDayInFuture":""
+              },
+              {
+                 "entityId":5,
+                 "activityName":"Print Order Definte",
+                 "regarding":"",
+                 "note":"Definitiv tryckorder",
+                 "date":"2018-01-22",
+                 "time":"09:00",
+                 "dependency":"Bindery Finished Sheet",
+                 "daysToAdd":"4",
+                 "timeTemplate":"09:00:00",
+                 "calculatedDayInFuture":"2018-01-22"
+              }
+           ]
+        },
+        {
+           "categoryName":"Repro",
+           "activities":[
+              {
+                 "entityId":6,
+                 "activityName":"Sheet Repro",
+                 "regarding":"Ark 1",
+                 "note":"TV-sidor till ES senast 12.00",
+                 "date":"2018-01-23",
+                 "time":"00:00",
+                 "dependency":"Printing",
+                 "daysToAdd":"",
+                 "timeTemplate":"00:00:00",
+                 "calculatedDayInFuture":"2018-01-23"
+              },
+              {
+                 "entityId":7,
+                 "activityName":"Sheet Repro",
+                 "regarding":"Ark 2",
+                 "note":"Lämning nästa vecka + tablå",
+                 "date":"2018-01-23",
+                 "time":"00:00",
+                 "dependency":"Printing",
+                 "daysToAdd":"",
+                 "timeTemplate":"00:00:00",
+                 "calculatedDayInFuture":"2018-01-23"
+              },
+              {
+                 "entityId":8,
+                 "activityName":"Sheet Repro",
+                 "regarding":"Ark 3 Kryss",
+                 "note":"Slutlämning exkl sena sidor",
+                 "date":"2018-01-23",
+                 "time":"00:00",
+                 "dependency":"Printing",
+                 "daysToAdd":"",
+                 "timeTemplate":"00:00:00",
+                 "calculatedDayInFuture":"2018-01-23"
+              }
+           ]
+        },
+        {
+           "categoryName":"Sheet Printing",
+           "activities":[
+              {
+                 "entityId":9,
+                 "activityName":"Printing",
+                 "regarding":"Ark 1",
+                 "note":"Ark ska lämnas till tryck",
+                 "date":"2018-01-23",
+                 "time":"15:00",
+                 "dependency":"Bindery Finished Sheet",
+                 "daysToAdd":"3",
+                 "timeTemplate":"15:00:00",
+                 "calculatedDayInFuture":"2018-01-23"
+              },
+              {
+                 "entityId":10,
+                 "activityName":"Printing",
+                 "regarding":"Ark 2",
+                 "note":"Ark ska lämnas till tryck",
+                 "date":"2018-01-23",
+                 "time":"15:00",
+                 "dependency":"Bindery Finished Sheet",
+                 "daysToAdd":"3",
+                 "timeTemplate":"15:00:00",
+                 "calculatedDayInFuture":"2018-01-23"
+              },
+              {
+                 "entityId":11,
+                 "activityName":"Printing",
+                 "regarding":"Ark 3 Kryss",
+                 "note":"Ark ska lämnas till tryck",
+                 "date":"2018-01-23",
+                 "time":"15:00",
+                 "dependency":"Bindery Finished Sheet",
+                 "daysToAdd":"3",
+                 "timeTemplate":"15:00:00",
+                 "calculatedDayInFuture":"2018-01-23"
+              }
+           ]
+        },
+        {
+           "categoryName":"Binding",
+           "activities":[
+              {
+                 "entityId":12,
+                 "activityName":"Bindery Fished Sheet",
+                 "regarding":"",
+                 "note":"Ark till häftning",
+                 "date":"2018-01-26",
+                 "time":"00:00",
+                 "dependency":"Edition Bindery",
+                 "daysToAdd":"0",
+                 "timeTemplate":"00:00:00",
+                 "calculatedDayInFuture":"2018-01-26"
+              },
+              {
+                 "entityId":13,
+                 "activityName":"Edition Bindery",
+                 "regarding":"",
+                 "note":"Normal bindningsstart",
+                 "date":"2018-01-26",
+                 "time":"00:00",
+                 "dependency":"Releaseday",
+                 "daysToAdd":"9",
+                 "timeTemplate":"00:00:00",
+                 "calculatedDayInFuture":"2018-01-26"
+              }
+           ]
+        }
+     ]);
 
 var fakeJSONResponseData = [
-    new ActivityCategory("Order Dates", [
-            new Activity(1, "1 Header Venture booked", "", "Satsningen ska vara anmäld", "2017-12-04", "00:00", "Releaseday", "45", "00:00:00", "2017-12-04"),
-            new Activity(2, "1 Circulation Deadline Preliminary", "", "Ev preliminär upplaga", "", "", "Circulation Deadline Defined", "", "00:00:00", ""),
-            new Activity(3, "1 Circulation Deadline Definite", "", "Definitiv upplaga klar", "2018-01-19", "00:00", "Bindery Finished Sheet", "5", "08:30:00", "2018-01-19"),                
-            new Activity(4, "1 Print Order Deadline Preliminary", "", "Ev. preliminär tryckorder", "", "", "Print Order Deadline Defined", "", "00:00:00", ""),
-            new Activity(5, "1 Print Order Definte", "", "Definitiv tryckorder", "2018-01-22", "09:00", "Bindery Finished Sheet", "4", "09:00:00", "2018-01-22"),
-        ]
-    ),
-    new ActivityCategory("Repro", [
-            new Activity(6, "1 Sheet Repro", "Ark 1", "TV-sidor till ES senast 12.00", "2018-01-23", "00:00", "Printing", "", "00:00:00", "2018-01-23"),
-            new Activity(7, "1 Sheet Repro", "Ark 2", "Lämning nästa vecka + tablå", "2018-01-23", "00:00", "Printing", "", "00:00:00", "2018-01-23"),
-            new Activity(8, "1 Sheet Repro", "Ark 3 Kryss", "Slutlämning exkl sena sidor", "2018-01-23", "00:00", "Printing", "", "00:00:00", "2018-01-23"),
-        ]
-    )
-];
+    {
+       "categoryName":"Fake update Binding",
+       "activities":[
+          {
+             "entityId":12,
+             "activityName":"update: Bindery Fished Sheet",
+             "regarding":"",
+             "note":"Ark till häftning",
+             "date":"2018-01-26",
+             "time":"00:00",
+             "dependency":"Edition Bindery",
+             "daysToAdd":"0",
+             "timeTemplate":"00:00:00",
+             "calculatedDayInFuture":"2018-01-26"
+          },
+          {
+             "entityId":13,
+             "activityName":"update: Edition Bindery",
+             "regarding":"",
+             "note":"Normal bindningsstart",
+             "date":"2018-01-26",
+             "time":"00:00",
+             "dependency":"Releaseday",
+             "daysToAdd":"9",
+             "timeTemplate":"00:00:00",
+             "calculatedDayInFuture":"2018-01-26"
+          }
+       ]
+    },
+    {
+       "categoryName":"Fake update Repro",
+       "activities":[
+          {
+             "entityId":6,
+             "activityName":"update: Sheet Repro",
+             "regarding":"Ark 1",
+             "note":"TV-sidor till ES senast 12.00",
+             "date":"2018-01-23",
+             "time":"00:00",
+             "dependency":"Printing",
+             "daysToAdd":"",
+             "timeTemplate":"00:00:00",
+             "calculatedDayInFuture":"2018-01-23"
+          },
+          {
+             "entityId":7,
+             "activityName":"update: Sheet Repro",
+             "regarding":"Ark 2",
+             "note":"Lämning nästa vecka + tablå",
+             "date":"2018-01-23",
+             "time":"00:00",
+             "dependency":"Printing",
+             "daysToAdd":"",
+             "timeTemplate":"00:00:00",
+             "calculatedDayInFuture":"2018-01-23"
+          },
+          {
+             "entityId":8,
+             "activityName":"update: Sheet Repro",
+             "regarding":"Ark 3 Kryss",
+             "note":"Slutlämning exkl sena sidor",
+             "date":"2018-01-23",
+             "time":"00:00",
+             "dependency":"Printing",
+             "daysToAdd":"",
+             "timeTemplate":"00:00:00",
+             "calculatedDayInFuture":"2018-01-23"
+          }
+       ]
+    }
+ ];
 
-ko.applyBindings(viewModel);
+ ko.applyBindings(viewModel);
