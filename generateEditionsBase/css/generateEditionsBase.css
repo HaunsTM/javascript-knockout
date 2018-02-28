@@ -4,15 +4,26 @@ body {
     color: #444444;    
 }
 
-.flex-container-column{
+.flex-container-column {
     display: flex;
     flex-direction: column;
 }
 
-.flex-container-button-row{
+.flex-container-row {
     display: flex;
     flex-direction: row;
+}
+
+.flex-justify-start {
+    justify-content: flex-start;
+}
+
+.flex-justify-end {
     justify-content: flex-end;
+}
+
+section {
+    border: 1px solid blue;
 }
 
 
