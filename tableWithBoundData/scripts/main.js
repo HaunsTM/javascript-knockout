@@ -8,8 +8,8 @@
  * http://jsfiddle.net/bZhCk/280/
  */
  
-ko.dirtyFlag = function(root, isInitiallyDirty) {
-    var result = function() {},
+let DirtyFlag = function(root, isInitiallyDirty) {
+    let result = function() {},
         _initialState = ko.observable(ko.toJSON(root)),
         _isInitiallyDirty = ko.observable(isInitiallyDirty);
 
@@ -25,8 +25,8 @@ ko.dirtyFlag = function(root, isInitiallyDirty) {
     return result;
 };
 
-var Metadata =   function(data) {
-    var self = this;
+let Metadata =   function(data) {
+    let self = this;
     self.lCIDDec = ko.observable(data.lCIDDec);
     
     self.activityName = ko.observable(data.tableHeaderLabels.activityName);
@@ -48,8 +48,8 @@ var Metadata =   function(data) {
     self.saveAndCloseTitle = ko.observable(data.actionButtons.saveAndCloseTitle);
 }
 
-var Activity = function (data) {
-    var self = this;
+let Activity = function (data) {
+    let self = this;
     self.entityId = ko.observable(data.entityId);
 
     self.activityName = ko.observable(data.activityName);
@@ -60,9 +60,9 @@ var Activity = function (data) {
     self.time = ko.observable(data.time);
     self.day = ko.pureComputed({
         read: function () {
-            var svLCIDDec = "1053";
-            var timeCalculator = new namespace.TimeCalculator();
-            var dateObject = new Date(self.date());
+            let svLCIDDec = "1053";
+            let timeCalculator = new namespace.TimeCalculator();
+            let dateObject = new Date(self.date());
 
             return timeCalculator.getDayNameByLocaleCountryIdDecimal(dateObject, svLCIDDec);
         },
@@ -75,37 +75,37 @@ var Activity = function (data) {
 
     self.calculatedDayInFuture = ko.observable(data.calculatedDayInFuture);
 
-    self.dirtyFlag = new ko.dirtyFlag(self);
+    self.dirtyFlag = new DirtyFlag(self);
 }
 
-var ActivityCategory = function (data) {
+let ActivityCategory = function (data) {
     let self = this;
     let activitiesArrayObject = data.activities.map( d => new Activity(d));
     self.categoryName = ko.observable(data.categoryName);
     self.activities = ko.observableArray(activitiesArrayObject); 
 }
 
-var ProductionScheduleModel = function(data, activityCategoryItemsJSONData) {
-    var self = this;
+let ProductionScheduleModel = function(data, activityCategoryItemsJSONData) {
+    let self = this;
     
     self.metadata = new Metadata(data);
 
-    var activityCategoryItems = activityCategoryItemsJSONData.map( d => new ActivityCategory(d));
+    let activityCategoryItems = activityCategoryItemsJSONData.map( d => new ActivityCategory(d));
     self.activityCategories = ko.observableArray(activityCategoryItems);
     
     self.dirtyItems = ko.computed(function() {
-        var tempDirtyItems = [];
-        var activityCategories = self.activityCategories();
-        var currentActivityCategoryIndex = activityCategories.length;
+        let tempDirtyItems = [];
+        let activityCategories = self.activityCategories();
+        let currentActivityCategoryIndex = activityCategories.length;
 
         while (currentActivityCategoryIndex--) {
-            var currentActivityCategory = activityCategories[currentActivityCategoryIndex];
+            let currentActivityCategory = activityCategories[currentActivityCategoryIndex];
 
-            var currentActivities = currentActivityCategory.activities();
-            var currentActivityIndex = currentActivities.length;
+            let currentActivities = currentActivityCategory.activities();
+            let currentActivityIndex = currentActivities.length;
 
             while (currentActivityIndex--) {
-                var currentActivity = currentActivities[currentActivityIndex];
+                let currentActivity = currentActivities[currentActivityIndex];
                 
                 if (currentActivity.dirtyFlag.isDirty()){
                     tempDirtyItems.push(currentActivity);
@@ -121,35 +121,51 @@ var ProductionScheduleModel = function(data, activityCategoryItemsJSONData) {
         return this.dirtyItems().length > 0;
     }, self);
 
-    self.calculateGridBasedOnThisRow = function (activity) {        
+    self.calculateGridBasedOnThisRow = function (activity) {    
+        let dataThatGridShouldBeRecalculatedOn = ko.toJSON(activity);
+            
         //send dataThatGridShouldBeRecalculatedOn to server
-        //wait for response, when it arrives, update entire model based on this data
-        var dataThatGridShouldBeRecalculatedOn = ko.toJSON(activity);
         
-        //TODO: Reset dirty state after updating model!
-        self.activityCategories(fakeJSONResponseData);
+        //wait for response, when it arrives
+        // fakeJSONResponseData = ...
+        let updatedActivityCategoryItems = fakeJSONResponseData.map( d => new ActivityCategory(d));
+        //update entire model based on this data
+        self.activityCategories(updatedActivityCategoryItems);
+
         console.log("Recalculated grid based on: " + dataThatGridShouldBeRecalculatedOn);        
     };
 
     self.clickedOnSave = function (model, event) {
+        let dataToSave = ko.toJSON(self.dirtyItems);
         //save dirty state items to system
-        var dataToSave = ko.toJSON(self.dirtyItems);
-        
-        //TODO: Reset dirty state after updating model!
+
         console.log('Saving edited data: '+ dataToSave );
+        
+        //wait for response, when it arrives
+        // updatedActivityCategoryItems = ...
+        let updatedActivityCategoryItems = fakeJSONResponseData.map( d => new ActivityCategory(d));
+        //update entire model based on this data
+        self.activityCategories(updatedActivityCategoryItems);
     }
 
-    self.clickedOnSaveAndExit = function (model, event) {        
+    self.clickedOnSaveAndExit = function (model, event) {
+        let dataToSave = ko.toJSON(self.dirtyItems);
         //save dirty state items to system
-        var dataToSave = ko.toJSON(self.dirtyItems);
+
         console.log('Saving edited data: '+ dataToSave );
+        
+        //wait for response, when it arrives
+        // updatedActivityCategoryItems = ...
+        let updatedActivityCategoryItems = fakeJSONResponseData.map( d => new ActivityCategory(d));
+        //update entire model based on this data
+        self.activityCategories(updatedActivityCategoryItems);
 
         //close view
         console.log('Closing');
     };
 }
 
-var viewModel = new ProductionScheduleModel(
+let viewModel = new ProductionScheduleModel(
     //Here we add some settings data
     {
         lCIDDec : "1053", 
@@ -355,7 +371,7 @@ var viewModel = new ProductionScheduleModel(
         }
      ]);
 
-var fakeJSONResponseData = [
+let fakeJSONResponseData = [
     {
        "categoryName":"Fake update Binding",
        "activities":[
