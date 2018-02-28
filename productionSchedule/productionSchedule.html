@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>Table with bound data</title>
+        <meta http-equiv="content-type" content="text/html" charset="UTF-8" />
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/table.css">
+        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.default.min.css" />
+        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.default.mobile.min.css" />
+    </head>
+    <body>
+        <div class="flex-container-column">
+            <section>
+                <div class="table">
+                    <div class="thead">
+                        <div class="tr">
+                            <div class="th"><span data-bind="text: metadata.activityName"></div>
+                            <div class="th"><span data-bind="text: metadata.regarding"></span></div>
+                            <div class="th"><span data-bind="text: metadata.note"></span></div>
+                            <div class="th"><span data-bind="text: metadata.date"></span></div>
+                            <div class="th"><span data-bind="text: metadata.time"></span></div>
+                            <div class="th"><span data-bind="text: metadata.day"></span></div>
+                            <div class="th"><span data-bind="text: metadata.dependency"></span></div>
+                            <div class="th"><span data-bind="text: metadata.daysToAdd"></span></div>
+                            <div class="th"><span data-bind="text: metadata.timeTemplate"></span></div>
+                            <div class="th"><span data-bind="text: metadata.calculatedDayInFuture"></span></div>
+                            <div class="th"></div>
+                        </div>
+                    </div>
+
+                    <!-- ko foreach: activityCategories -->
+                        <div class="tbody">
+                            <div class="tr">
+                                <div class="td"><h4 data-bind="text: categoryName"></h4></div>
+                            </div>
+                            <!-- ko foreach: activities -->
+                            <div class="tr">
+                                <div class="td"><span data-bind="text: activityName, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: regarding, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><input type="text" class="k-input" data-bind="value: note, css: { showDirtyStyle: dirtyFlag.isDirty }"/></div>
+                                <div class="td"><input id="myDatePicker" data-bind="kendoDatePicker: { value: date, format: 'yyyy-MM-dd' }, css: { showDirtyStyle: dirtyFlag.isDirty }" /></div>
+                                <div class="td"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }, css: { showDirtyStyle: dirtyFlag.isDirty }"></div>
+                                <div class="td"><span data-bind="text: day, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: dependency, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: daysToAdd, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: timeTemplate, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: calculatedDayInFuture, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td">
+                                    <a class="image-button-style" href="#" data-bind="attr: { title: $root.metadata.updateGridButtonTitle }, click: $root.calculateGridBasedOnThisRow">
+                                        <img src="images/Update_16.png" alt="" border="0" />
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    <!-- /ko -->
+                </div>
+                        
+            </section>
+
+            <section>
+                <div class="flex-container-button-row">
+                    <a data-bind="attr: { title: metadata.saveTitle } ,click: $root.clickedOnSave" href="#" class="image-button-style">
+                        <span data-bind="text: metadata.saveLabel"></span>
+                    </a>
+                    <a data-bind="attr: { title: metadata.saveAndCloseTitle } ,click: $root.clickedOnSaveAndExit" href="#" class="image-button-style">
+                        <span data-bind="text: metadata.saveAndCloseLabel"></span>
+                    </a>
+                </div>
+            </section>
+        </div>
+        
+        <script src="scripts/jquery.min.js"></script>
+        <script src="scripts/kendo.all.min.js"></script>
+        <script src="scripts/kendo.messages.sv-SE.min.js"></script>
+        <script src="scripts/knockout-min.js"></script>
+        <script src="scripts/knockout-kendo.min.js"></script>
+        
+        <script src="scripts/timeCalculator.js"></script>
+        <script src="scripts/main.js"></script>
+
+    </body>
+</html>
