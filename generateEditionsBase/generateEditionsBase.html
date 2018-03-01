@@ -4,6 +4,7 @@
         <meta http-equiv="content-type" content="text/html" charset="UTF-8" />
         <link rel="stylesheet" href="css/generateEditionsBase.css">
         <link rel="stylesheet" href="css/table.css">
+        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.1.117/styles/kendo.default.min.css" />
     </head>
     <body>
         <div class="flex-container-column">
@@ -11,10 +12,10 @@
                 <!--Top section-->
                 <div class="flex-container-column flex-start">
                     <section>
-                        <h1>Generate Editions - Base</h1>
+                        <h1 data-bind="text: metadata.formTexts.header"></h1>
                     </section>
                     <section>
-                        <small>Create new editions with base data</small>
+                        <small data-bind="text: metadata.formTexts.headerSubText"></small>
                     </section>
                 </div>
             </section>
@@ -22,55 +23,51 @@
                 <!--Middle section-->
                 <div class="flex-container-column flex-start">
                     <section>
-                        <span>Create new editions from publication. This will generate new editions with Base Data from publication and old issues.</span>
+                        <span data-bind="text: metadata.formTexts.infoText"></span>
                     </section>
                     <section>
                         <div class="flex-container-column flex-justify-start">
-                            <div>
                                 <div class="table">
                                     <div class="tr">
                                         <div class="td">
-                                            <span>Year of new editions</span>
+                                            <span data-bind="text: metadata.fieldLabels.yearOfNewEditions"></span>
                                         </div>
                                         <div class="td">
-                                            <span>input 1</span>
+                                            <input type="text" class="k-input" data-bind="value: yearOfNewEditions"/>
                                         </div>
                                     </div>
                                     <div class="tr">
-                                        <div class="td">                                            
-                                            <span>From edition number</span>
+                                        <div class="td">
+                                            <span data-bind="text: metadata.fieldLabels.fromEditionNumber"></span>
                                         </div>
                                         <div class="td">
-                                            <span>input 2</span>
+                                            <input type="text" class="k-input" data-bind="value: fromEditionNumber"/>
                                         </div>
                                     </div>
                                     <div class="tr">
-                                        <div class="td">                                            
-                                                <span>To edition number</span>
+                                        <div class="td">
+                                            <span data-bind="text: metadata.fieldLabels.toEditionNumber"></span>
                                         </div>
                                         <div class="td">
-                                            <span>nput 3</span>
+                                            <input type="text" class="k-input" data-bind="value: toEditionNumber"/>
                                         </div>
                                     </div>
                                 </div>
-
-                            </div>
                         </div>
                     </section>
                 </div>
-
             </section>
             <section>
                 <!--Bottom section-->
                 <div class="flex-container-row flex-justify-end">
                     <section>
-                        <a data-bind="attr: { title: metadata.saveTitle } ,click: $root.clickedOnSave" href="#" class="image-button-style">
-                            <span data-bind="text: metadata.saveLabel"></span>
+                        <a data-bind="attr: { title: metadata.actionButtons.okTitle } ,click: $root.clickedOnOk" href="#" class="image-button-style">
+                            <span data-bind="text: metadata.actionButtons.okLabel"></span>
                         </a>                        
                     </section>
                     <section>
-                        <a data-bind="attr: { title: metadata.saveAndCloseTitle } ,click: $root.clickedOnSaveAndExit" href="#" class="image-button-style">
-                            <span data-bind="text: metadata.saveAndCloseLabel"></span>
+                        <a data-bind="attr: { title: metadata.actionButtons.cancelTitle } ,click: $root.clickedOnCancel" href="#" class="image-button-style">
+                            <span data-bind="text: metadata.actionButtons.cancelLabel"></span>
                         </a>                        
                     </section>
                 </div>
