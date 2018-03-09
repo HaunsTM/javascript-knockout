@@ -1,0 +1,49 @@
+
+body {
+    font-family: "Segoe UI";
+    color: #444444;    
+}
+
+.flex-container-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-container-button-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#topSection {
+    padding: 1rem 0;
+}
+
+#bottomSection {
+    padding: 1rem 1rem;
+    background-color: #e0e0e0;
+}
+
+span .k-icon {
+    /*quick fix for bad placement of touchable icons in kendo selectors */
+    padding: 0.4rem;
+}
+
+.image-button-style {
+    padding: 0.2rem 2rem;
+    margin: 0 0.5rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+    
+    text-decoration: none;
+    font-weight: bold;
+    color: #444444;  
+}
+
+.image-button-style:hover {
+    background-color: rgba(243,243,243,1);
+}
+
+.showDirtyStyle { 
+    font-style: italic;    
+}

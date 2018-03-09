@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>Production Schedule</title>
+        <meta http-equiv="content-type" content="text/html" charset="UTF-8" />
+        <link rel="stylesheet" href="css/productionScheduleTemplate.css">
+        <link rel="stylesheet" href="css/table.css">
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.117/styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.117/styles/kendo.default.min.css" />
+    </head>
+    <body>
+        <div class="flex-container-column">
+            <section id="topSection">
+                <div class="table">
+                    <div class="thead">
+                        <div class="tr">
+                            <div class="th"><span data-bind="text: metadata.activityName"></span></div>
+                            <div class="th"><span data-bind="text: metadata.regarding"></span></div>
+                            <div class="th"><span data-bind="text: metadata.note"></span></div>
+                            <div class="th"><span data-bind="text: metadata.dependency"></span></div>
+                            <div class="th"><span data-bind="text: metadata.daysToAdd"></span></div>
+                            <div class="th"><span data-bind="text: metadata.time"></span></div>
+                        </div>
+                    </div>
+
+                    <!-- ko foreach: activityCategories -->
+                        <div class="tbody">
+                            <div class="tr">
+                                <div class="td"><h4 data-bind="text: categoryName"></h4></div>
+                            </div>
+                            <!-- ko foreach: activities -->
+                            <div class="tr">
+                                <div class="td"><span data-bind="text: activityName, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: regarding, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><input type="text" class="k-input" data-bind="value: note, css: { showDirtyStyle: dirtyFlag.isDirty }"/></div>
+                                <div class="td"><span data-bind="text: dependency, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><span data-bind="text: daysToAdd, css: { showDirtyStyle: dirtyFlag.isDirty }"></span></div>
+                                <div class="td"><input data-bind="kendoTimePicker: { value: time, format: 'HH:mm' }, css: { showDirtyStyle: dirtyFlag.isDirty }"></div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    <!-- /ko -->
+                </div>
+                        
+            </section>
+
+            <section id="bottomSection">
+                <div class="flex-container-button-row">
+                    <a data-bind="attr: { title: metadata.saveTitle } ,click: $root.clickedOnSave" href="#" class="image-button-style">
+                        <span data-bind="text: metadata.saveLabel"></span>
+                    </a>
+                </div>
+            </section>
+        </div>
+        
+        <script src="https://kendo.cdn.telerik.com/2018.1.117/js/jquery.min.js"></script>
+        <script src="../Scripts/knockout-3.4.2.js"></script>
+        <script src="../../ClientGlobalContext.js.aspx" type="text/javascript"></script>
+        <script src="../helpers/CrmManager.js"></script>
+        <script src="../helpers/AllerPumaService.js"></script>
+
+        <script src="https://kendo.cdn.telerik.com/2018.1.117/js/kendo.all.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2018.1.117/js/messages/kendo.messages.sv-SE.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-kendo/0.9.8/knockout-kendo.min.js"></script>
+        
+        <script src="productionScheduleTemplate.js"></script>
+
+    </body>
+</html>
