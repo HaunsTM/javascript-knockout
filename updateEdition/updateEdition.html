@@ -41,10 +41,10 @@
                     </section>
                     <section>
                         <article id="tabStdCirculations_Fields" class="tab-content active">
-sszdth
+1
                         </article>
                         <article id="tabStdCirculations_Comments" class="tab-content">
-fghhh
+2
                         </article>
                     </section>
                 </div>
@@ -53,14 +53,43 @@ fghhh
 <!--tabContentStdSheet-->
             <article id="tabContentStdSheet" class="tab-content">
                 <div class="flex-container-column">
-                    Hopp
+                    <section class="tab">
+                        <div class="flex-container-row">                
+                            <nav class="tab-link active" onclick="showTabContent(event, 'tabContentStdSheet_Fields')">
+                                <span data-bind="text: metadata.allKeys.lbl_TabStdCirculations_Fields"></span>                    
+                            </nav>
+                            <nav class="tab-link" onclick="showTabContent(event, 'tabContentStdSheet_Comments')">
+                                <span data-bind="text: metadata.allKeys.lbl_TabNotes"></span>                  
+                            </nav>
+                        </div>
+                    </section>
+                    <section>
+                        <article id="tabContentStdSheet_Fields" class="tab-content active">
+3
+                        </article>
+                        <article id="tabContentStdSheet_Comments" class="tab-content">
+4
+                        </article>
+                    </section>
                 </div>
             </article>
                 
 <!--tabContentTabEdition-->  
             <article id="tabContentTabEdition" class="tab-content">
                 <div class="flex-container-column">
-                    Lingonskogen
+                    
+                    <section class="tab">
+                        <div class="flex-container-row">                
+                            <nav class="tab-link active">
+                                <span>Utgåva</span>                    
+                            </nav>
+                        </div>
+                    </section>
+                    <section>
+                        <article id="tabContentTabEdition_Editions" class="tab-content active">
+5
+                        </article>
+                    </section>
                 </div>
             </article>
 
