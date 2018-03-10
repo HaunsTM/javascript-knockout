@@ -1,0 +1,56 @@
+
+body {
+    font-family: "Segoe UI";
+    color: #444444;    
+}
+
+#mainTabSection {
+    padding: 0 1rem;
+    background-color: #e0e0e0;
+}
+
+#mainContentSection {
+    padding: 1rem 1rem;
+}
+
+.flex-container-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-container-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-justify-start {
+    justify-content: flex-start;
+}
+
+.flex-justify-end {
+    justify-content: flex-end;
+}
+
+.infoText {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.image-button-style {
+    padding: 0.2rem 2rem;
+    margin: 0 0.5rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+    
+    text-decoration: none;
+    font-weight: bold;
+    color: #444444;  
+}
+
+.image-button-style:hover {
+    background-color: rgba(243,243,243,1);
+}
+
+.showDirtyStyle { 
+    font-style: italic;    
+}

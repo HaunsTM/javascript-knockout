@@ -1,0 +1,33 @@
+.table {
+    display: table;
+    width: 100%;
+}
+
+.tr {
+    display: table-row;
+    padding-bottom: 1rem;
+}
+
+.thead {
+    display: table-header-group;
+    background-color: rgba(243,243,243,1);
+    font-weight: bold;
+}
+
+.th{
+
+    display: table-cell;
+
+    padding: 0.5rem 0;
+    border-bottom: 0.1px solid grey;
+}
+
+.tbody {
+    display: table-row-group;
+}
+
+
+.td {
+    display: table-cell;
+    padding: 0.1rem 0;
+}

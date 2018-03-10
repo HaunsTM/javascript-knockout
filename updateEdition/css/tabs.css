@@ -1,0 +1,28 @@
+
+.tab nav {
+    padding: 1rem 2rem;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    transition: background-color 200ms linear;
+}
+/* Change background color of buttons on hover */
+.tab nav:hover {
+    padding-bottom: calc(1rem - 3px);
+    border-bottom: 3px solid rgb(59, 121, 183);
+    background-color: white;
+}
+
+/* Create an active/current tablink class */
+.tab nav.active {
+    background-color: white;
+    padding-bottom: calc(1rem - 3px);
+    border-bottom: 3px solid rgb(59, 121, 183);
+}
+
+/* Style the tab content */
+.tab-content {
+    display: none;
+}
+.tab-content.active{
+    display: block;
+}

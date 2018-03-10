@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Update lbl_TabEdition</title>
+        <meta http-equiv="content-type" content="text/html" charset="UTF-8" />
+        <link rel="stylesheet" href="css/updateEdition.css">
+        <link rel="stylesheet" href="css/tabs.css">
+        <link rel="stylesheet" href="css/table.css">
+    </head>
+    <body>
+    <div class="flex-container-column">
+
+        <section id="mainTabSection" class="tab">
+            <div class="flex-container-row">                
+                <nav class="tab-link active" onclick="showTabContent(event, 'tabContentStdCirculation')">
+                    <span data-bind="text: metadata.allKeys.lbl_TabStdCirculation"></span>                    
+                </nav>
+                <nav class="tab-link" onclick="showTabContent(event, 'tabContentStdSheet')">
+                    <span data-bind="text: metadata.allKeys.lbl_TabStdSheet"></span>                  
+                </nav>
+                <nav class="tab-link" onclick="showTabContent(event, 'tabContentTabEdition')">
+                    <span data-bind="text: metadata.allKeys.lbl_TabEdition"></span>                   
+                </nav>
+            </div>
+        </section>
+
+        <section id="mainContentSection">            
+
+<!--tabContentStdCirculation-->
+            <article id="tabContentStdCirculation" class="tab-content active">
+                <div class="flex-container-column">
+                    Hej
+                </div>
+            </article>
+            
+<!--tabContentStdSheet-->
+            <article id="tabContentStdSheet" class="tab-content">
+                <div class="flex-container-column">
+                    Hopp
+                </div>
+            </article>
+                
+<!--tabContentTabEdition-->  
+            <article id="tabContentTabEdition" class="tab-content">
+                <div class="flex-container-column">
+                    Lingonskogen
+                </div>
+            </article>
+
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <!--<script src="../Scripts/knockout-3.4.2.js"></script>
+    <script src="../../ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <script src="../helpers/CrmManager.js"></script>
+    <script src="../helpers/AllerPumaService.js"></script>-->
+    <script src="scripts/updateEdition.js"></script>
+    <script src="scripts/tabs.js"></script>
+    </body>
+</html>
