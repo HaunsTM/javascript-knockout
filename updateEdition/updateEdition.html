@@ -28,7 +28,25 @@
 <!--tabContentStdCirculation-->
             <article id="tabContentStdCirculation" class="tab-content active">
                 <div class="flex-container-column">
-                    Hej
+                    
+                    <section class="tab">
+                        <div class="flex-container-row">                
+                            <nav class="tab-link active" onclick="showTabContent(event, 'tabStdCirculations_Fields')">
+                                <span data-bind="text: metadata.allKeys.lbl_TabStdCirculations_Fields"></span>                    
+                            </nav>
+                            <nav class="tab-link" onclick="showTabContent(event, 'tabStdCirculations_Comments')">
+                                <span data-bind="text: metadata.allKeys.lbl_TabNotes"></span>                  
+                            </nav>
+                        </div>
+                    </section>
+                    <section>
+                        <article id="tabStdCirculations_Fields" class="tab-content active">
+sszdth
+                        </article>
+                        <article id="tabStdCirculations_Comments" class="tab-content">
+fghhh
+                        </article>
+                    </section>
                 </div>
             </article>
             
